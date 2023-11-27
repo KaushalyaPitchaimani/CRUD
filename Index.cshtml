@@ -1,0 +1,59 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+
+
+@model IPagedList<CrudForeignKey.Models.Product>
+
+@{
+    ViewBag.Title = "Index";
+}
+<link href="~/Content//PagedList.css" rel="stylesheet" type="text/css" />
+<div style="font.family:Arial">
+    <h2>Index</h2>
+
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.First().ProductID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.First().ProductName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.First().Category.CategoryId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.First().Category1.CategoryName)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProductID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProductName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Category.CategoryId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Category1.CategoryName)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.ProductID }) |
+
+                    @Html.ActionLink("Delete", "Delete", new { id = item.ProductID })
+                </td>
+            </tr>
+        }
+
+    </table>
+    @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+ </div>
